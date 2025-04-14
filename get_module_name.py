@@ -1,3 +1,4 @@
+import sys
 import re
 
 # Get the commit message from the GITHUB_EVENT_PATH environment variable
