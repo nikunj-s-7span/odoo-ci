@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+crm_customization.access_crm_sales_channel,access_crm_sales_channel,crm_customization.model_crm_sales_channel,base.group_user,1,1,1,1
+crm_customization.access_crm_skill,access_crm_skill,crm_customization.model_crm_skill,base.group_user,1,1,1,1
+crm_customization.access_crm_looking_for,access_crm_looking_for,crm_customization.model_crm_looking_for,base.group_user,1,1,1,1
+crm_customization.access_crm_priority_report,access_crm_priority_report,crm_customization.model_crm_priority_report,base.group_user,1,1,1,1

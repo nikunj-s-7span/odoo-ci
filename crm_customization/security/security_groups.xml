@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="module_category_contact_management" model="ir.module.category">
+        <field name="name">Access Contacts Menu</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="restrict_menu_access" model="res.groups">
+        <field name="name">Show Contact Menu</field>
+        <field name="category_id" ref="crm_customization.module_category_contact_management"/>
+    </record>
+
+    <record id="contacts.menu_contacts" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('crm_customization.restrict_menu_access')])]"/>
+    </record>
+</odoo>

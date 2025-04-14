@@ -1,0 +1,5 @@
+<odoo noupdate="1">
+    <record id="group_google_ads_report_access" model="res.groups">
+        <field name="name">Google Ads Report Access</field>
+    </record>
+</odoo>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_priority_report_view_list" model="ir.ui.view">
+        <field name="name">crm.priority.report.list</field>
+        <field name="model">crm.priority.report</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="date"/>
+                <field name="old_priority" widget="priority" nolabel="1" class="oe_inline align-top"/>
+                <field name="new_priority" widget="priority" nolabel="1" class="oe_inline align-top"/>
+                <field name="lead_id" context="{'form_view_ref': 'crm.crm_lead_view_form'}"/>
+                <field name="user_id"/>
+                <field name="stage_id"/>
+                <field name="partner_id"/>
+                <field name="lead_type"/>
+                <field name="lead_active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="crm_priority_report_view_form" model="ir.ui.view">
+        <field name="name">crm.priority.report.form</field>
+        <field name="model">crm.priority.report</field>
+        <field name="arch" type="xml">
+            <form string="Priority Report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="user_id"/>
+                            <field name="lead_id" context="{'form_view_ref': 'crm.crm_lead_view_form'}"/>
+                            <field name="partner_id"/>
+                            <field name="lead_active"/>
+                        </group>
+                        <group>
+                            <field name="old_priority" widget="priority"/>
+                            <field name="new_priority" widget="priority"/>
+                            <field name="stage_id"/>
+                            <field name="lead_type"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="crm_priority_report_view_graph" model="ir.ui.view">
+        <field name="name">crm.priority.report.graph</field>
+        <field name="model">crm.priority.report</field>
+        <field name="arch" type="xml">
+            <graph string="Priority Analysis">
+                <field name="lead_id"/>
+                <field name="date" interval="month"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="crm_priority_report_view_pivot" model="ir.ui.view">
+        <field name="name">crm.priority.report.pivot</field>
+        <field name="model">crm.priority.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Priority Analysis" sample="1">
+                <field name="lead_id" type="col"/>
+                <field name="date" interval="month" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="crm_priority_report_view_search" model="ir.ui.view">
+        <field name="name">crm.priority.report.search</field>
+        <field name="model">crm.priority.report</field>
+        <field name="arch" type="xml">
+            <search string="Priority Analysis">
+                <field name="lead_id" string="Opportunity"/>
+                <field name="user_id" string="Salesperson"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="crm_priority_report_action" model="ir.actions.act_window">
+        <field name="name">Priority Report</field>
+        <field name="res_model">crm.priority.report</field>
+        <field name="view_mode">graph,pivot,list,form</field>
+        <field name="context">{
+            'search_default_completion_date': 1,
+            'pivot_column_groupby': ['user_id'],
+            'pivot_row_groupby': ['date:month'],
+            'graph_mode': 'bar',
+            'graph_groupbys': ['date:month','user_id'],
+            }
+        </field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Let's get to work!
+            </p>
+            <p>
+                Priority changes in Leads will appear here, providing an overview of lead interactions.
+            </p>
+        </field>
+    </record>
+
+</odoo>

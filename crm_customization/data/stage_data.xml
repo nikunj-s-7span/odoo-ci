@@ -1,0 +1,26 @@
+<odoo>
+    <record id="stage_lead_open" model="crm.stage">
+        <field name="name">Open</field>
+        <field name="sequence">1</field>
+        <field name="is_lead_stage">True</field>
+        <field name="team_id" eval="False"/>
+    </record>
+    <record id="stage_lead_connected" model="crm.stage">
+        <field name="name">Connected</field>
+        <field name="sequence">2</field>
+        <field name="is_lead_stage">True</field>
+        <field name="team_id" eval="False"/>
+    </record>
+    <record id="stage_lead_qualified" model="crm.stage">
+        <field name="name">Qualified Lead</field>
+        <field name="sequence">3</field>
+        <field name="is_lead_stage">True</field>
+        <field name="team_id" eval="False"/>
+    </record>
+    <record id="stage_lead_converted" model="crm.stage">
+        <field name="name">Converted</field>
+        <field name="sequence">4</field>
+        <field name="is_lead_stage">True</field>
+        <field name="team_id" eval="False"/>
+    </record>
+</odoo>
