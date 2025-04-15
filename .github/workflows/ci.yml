@@ -26,9 +26,15 @@ jobs:
         python -m pip install --upgrade pip
         pip install pylint-odoo flake8
 
-    - name: Run script to get module name
+    - name: Run Python script and export MODULE_NAME
+      id: extract
       run: |
-        python get_module_name.py
+        MODULE_NAME=$(python3 get_module_name.py)
+        echo "MODULE_NAME=$MODULE_NAME" >> $GITHUB_ENV
+
+    - name: Use the module name
+      run: |
+        echo "Extracted module: $MODULE_NAME"
 
     - name: Run pylint-odoo
       run: |
