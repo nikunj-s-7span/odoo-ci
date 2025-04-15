@@ -1,8 +1,8 @@
-import sys
 import re
+import subprocess
 
 # Get the commit message from the GITHUB_EVENT_PATH environment variable
-commit_message = sys.stdin.read()
+commit_message = subprocess.check_output(['git', 'log', '-1', '--pretty=%B']).decode().strip()
 
 print(f"Module name: {commit_message}")
 
