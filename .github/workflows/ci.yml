@@ -36,6 +36,9 @@ jobs:
       run: |
         echo "Extracted module: ${{ env.MODULE_NAME }}"
 
+    - name: List .py files to be linted
+      run: find ${{ env.MODULE_NAME }} -name "*.py"
+
     - name: Run pylint-odoo
       run: |
         pylint --load-plugins=pylintodoo -d all ${{ env.MODULE_NAME }}
