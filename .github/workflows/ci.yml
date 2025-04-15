@@ -45,7 +45,7 @@ jobs:
         find ${{ env.MODULE_NAME }} -name "*.py" > files.txt
         cat files.txt  # Debug print
         if [ -s files.txt ]; then
-          xargs pylint --load-plugins=pylintodoo -d all < files.txt
+          xargs pylint --load-plugins=pylintodoo < files.txt
         else
           echo "No Python files found — skipping lint."
         fi
