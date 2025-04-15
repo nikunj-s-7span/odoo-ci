@@ -39,18 +39,14 @@ jobs:
     - name: List .py files to be linted
       run: find ${{ env.MODULE_NAME }} -name "*.py"
 
-    - name: Run pylint-odoo (with file discovery)
+    - name: Run pylint-odoo (safe file listing)
       run: |
-        FILES=$(find ${{ env.MODULE_NAME }} -name "*.py" | tr '\n' ' ')
-        if [ -n "$FILES" ]; then
-          echo "Linting the following files:"
-          echo "$FILES"
-          pylint --load-plugins=pylintodoo -d all $FILES
+        find ${{ env.MODULE_NAME }} -name "*.py" > py_files.txt
+        if [ -s py_files.txt ]; then
+          cat py_files.txt | xargs pylint --load-plugins=pylintodoo -d all
         else
           echo "No Python files found — skipping lint."
         fi
-    
-    
 
     - name: Run Flake8
       run: |
