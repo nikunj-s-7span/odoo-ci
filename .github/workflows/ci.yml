@@ -34,12 +34,12 @@ jobs:
 
     - name: Use the module name
       run: |
-        echo "Extracted module: $MODULE_NAME"
+        echo "Extracted module: ${{ env.MODULE_NAME }}"
 
     - name: Run pylint-odoo
       run: |
-        pylint --load-plugins=pylintodoo -d all $MODULE_NAME
+        pylint --load-plugins=pylintodoo -d all ${{ env.MODULE_NAME }}
 
     - name: Run Flake8
       run: |
-        flake8 $MODULE_NAME
+        flake8 ${{ env.MODULE_NAME }}
