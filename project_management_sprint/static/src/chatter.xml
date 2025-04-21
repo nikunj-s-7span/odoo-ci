@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="project_management_sprint.Chatter" t-inherit="mail.Chatter" t-inherit-mode="extension">
+        <xpath expr="//button[2]" position="attributes">
+            <attribute name="t-att-class">{
+                    'btn-primary': state.composerType !== 'note',
+                    'btn-secondary': state.composerType === 'note',
+                    'my-2': !props.compactHeight
+                }</attribute>
+        </xpath>
+        <xpath expr="//button[2]" position="after">
+            <button class="o-mail-Chatter-sendMessage btn text-nowrap me-1" t-att-class="{
+                'btn-primary active': False,
+                'btn-secondary': state.composerType !== 'note' or state.composerType === 'note',
+                'active': state.composerType === 'message',
+                'my-2': !props.compactHeight
+            }" t-att-disabled="!state.thread.hasWriteAccess and !(state.thread.hasReadAccess and state.thread.canPostOnReadonly) and props.threadId" data-hotkey="m" t-on-click="() => this.toggleComposer('message')">
+                Send mail
+            </button>
+        </xpath>
+        <xpath expr="//button[1]" position="replace"/>
+    </t>
+</templates>

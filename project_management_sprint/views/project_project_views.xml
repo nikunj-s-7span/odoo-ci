@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- SPRINT BUTTON IN PROJECT -->
+    <record id="edit_project" model="ir.ui.view">
+        <field name="name">project.project.view.form.inherit.project.management.sprint</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button string="Sprint" class="oe_stat_button" type="object" name="action_get_sprint" icon="" width="5"
+                        height="5"/>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="team_members_ids" widget="many2many_avatar_user"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project_kanban_inherit_sprint" model="ir.ui.view">
+        <field name="name">project.project.view.project.kanban.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='card_menu_view']" position="inside">
+                <div role="menuitem">
+                    <a name="action_get_sprint" type="object">Sprints</a>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_project_kanban_view_inherit" model="ir.ui.view">
+        <field name="name">project.project.kanban.view.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban/templates" position="inside">
+                <t t-set="record">
+                    <button type="object" name="project_update_all_action" string="Update All"
+                        class="btn btn-primary"/>
+                </t>
+            </xpath>
+        </field>
+    </record>
+</odoo>
