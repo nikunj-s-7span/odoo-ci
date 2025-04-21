@@ -1,0 +1,37 @@
+from odoo import fields, models, api
+from odoo.exceptions import AccessError
+
+
+class ProjectProjectStage(models.Model):
+    _inherit = "project.project.stage"
+
+    def _check_project_manager_access(self, action):
+        messages = {
+            "create": "You do not have permission to create a Project Stage!",
+            "write": "You do not have permission to modify a Project Stage!",
+            "unlink": "You do not have permission to delete a Project Stage!",
+        }
+        if not self.env.user.has_group(
+            "project.group_project_manager"
+        ) or self.env.user.has_group(
+            "project_management_sprint.group_project_manager_user"
+        ):
+            raise AccessError(
+                messages.get(
+                    action, "You do not have permission to perform this action."
+                )
+            )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        self._check_project_manager_access("create")
+        return super().create(vals_list)
+
+    def write(self, vals):
+        self._check_project_manager_access("write")
+        return super().write(vals)
+
+    def unlink(self):
+        for record in self:
+            record._check_project_manager_access("unlink")
+        return super().unlink()

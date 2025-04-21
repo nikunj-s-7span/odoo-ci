@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- LINKED ISSUE IN TASK -->
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">project.task.view.form.inherit.project.management.sprint</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_ids']" position="after">
+                <field name="sprint_id"/>
+                <field name="available_user_ids" widget="many2many_avtar_user" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='user_ids']" position="attributes">
+                <attribute name="domain">[('share','=',False),('active','=',True),('id','in',available_user_ids)]</attribute>
+                <attribute name="options">{'no_open': 1, 'no_create': 1}</attribute>
+            </xpath>
+            <xpath expr="//div[@class='d-flex justify-content-end o_state_container']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[@class='d-flex justify-content-start o_state_container w-100 w-md-50 w-lg-25']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']//field[@widget='project_task_state_selection']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='depend_on_ids']//field[@widget='project_task_state_selection']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_task_tree2_inherit_sprint" model="ir.ui.view">
+        <field name="name">project.task.view.tree.inherit.project.management.sprint</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@widget='project_task_state_selection']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_task_kanban_inherit_sprint" model="ir.ui.view">
+        <field name="name">project.task.view.kanban.inherit.project.management.sprint</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@widget='project_task_state_selection']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="js_class">extended_project_task_kanban</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="quick_create_task_form_inherit_sprint" model="ir.ui.view">
+        <field name="name">quick.create.task.form.inherit.sprint</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.quick_create_task_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_ids']" position="attributes">
+                <attribute name="domain">[('share','=',False),('active','=',True),('id','in',available_user_ids)]</attribute>
+                <attribute name="options">{'no_open': 1, 'no_create': 1}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_subtasks" model="ir.actions.act_window">
+        <field name="name">Subtasks</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="domain">[('parent_id', '!=', False),('project_id.team_members_ids','in',uid)]</field>
+    </record>
+
+    <menuitem id="menu_subtasks"
+              name="Subtasks"
+              parent="project.menu_project_management"
+              action="action_subtasks"
+              sequence="30"/>
+</odoo>
